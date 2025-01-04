@@ -19,10 +19,14 @@ def calculate_multiclass_metrics(y_true: pd.Series, y_pred: np.ndarray, classes:
         raise ValueError("y_true and y_pred must have the same length.")
 
     # Calculate MSE
+    unrounded_mse = mean_squared_error(y_true, y_pred)
+    
+    y_pred = np.round(y_pred).astype(int)
     mse = mean_squared_error(y_true, y_pred)
+    
     accuracy = accuracy_score(y_true, y_pred)
     
-    metrics_dict = {"MSE": mse, "Accuracy": accuracy, "Class Metrics": {}}
+    metrics_dict = {"MSE": mse, "Accuracy": accuracy, "Class Metrics": {}, "Unrounded MSE": unrounded_mse}
     
     for cls in classes:
         # Binary conversion for the current class
@@ -40,7 +44,7 @@ def calculate_multiclass_metrics(y_true: pd.Series, y_pred: np.ndarray, classes:
             "FP": FP,
             "FN": FN,
         }
-    
+        
     return metrics_dict
 
 # Example usage:
