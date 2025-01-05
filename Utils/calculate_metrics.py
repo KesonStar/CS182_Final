@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import mean_squared_error, accuracy_score
 
-def calculate_multiclass_metrics(y_true: pd.Series, y_pred: np.ndarray, classes: list):
+def calculate_multiclass_metrics(y_true: pd.Series, y_pred: np.ndarray, classes: list = [1, 2, 3, 4, 5]) -> dict: 
     """
     Calculate MSE, accuracy, TP, TN, FP, FN for multi-class classification.
 
